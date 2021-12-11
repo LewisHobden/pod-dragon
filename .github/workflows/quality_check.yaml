@@ -1,4 +1,4 @@
-name: Continuous Integration
+name: Quality Check
 
 on:
   push:
@@ -46,14 +46,7 @@ jobs:
           php-version: '8.0'
 
       - name: Install Dependencies
-        run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
-
-      - name: Install PHPStan
-        run: |
-          wget -O phpstan.phar https://github.com/phpstan/phpstan/raw/master/phpstan.phar
-          chmod a+x phpstan.phar
-          mv phpstan.phar /usr/local/bin/phpstan
-          phpstan --version
+        run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist --dev
 
       - name: Run PHPStan
-        run: phpstan
+        run: composer stan
